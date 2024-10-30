@@ -1,0 +1,42 @@
+@page "/task-register"
+@inject NavigationManager Navigation
+@inject IStateBox<List<TaskItem>> sessionState
+@implements IDisposable
+@rendermode InteractiveServer
+
+<h3>タスク登録</h3>
+
+
+<EditForm EditContext=editContext OnValidSubmit=AddTask>
+    <div>
+        <label>題名*</label>
+        <InputText type="text" id="txtTitle" @bind-Value="@newTask.Title" />
+        <ValidationMessage For="@(() => @newTask.Title)" />
+    </div>
+    <div>
+        <label>期限*</label>
+        <InputDate id="deadline" @bind-Value="@newTask.DueDate" />
+        <ValidationMessage For="@(() => @newTask.DueDate)" />
+    </div>
+    <div>
+        <label>状態*</label>
+        <select id="type" @bind="@newTask.TaskStatus">
+            @foreach (var item in Enum.GetValues(typeof(TaskItem.Status)))
+		    {
+			    <option value="@item">@item</option>
+		    }
+        </select>
+        <ValidationMessage For="@(() => @newTask.TaskStatus)" />
+    </div>
+    <div>
+        <label>内容</label>
+        <textarea id="content" rows="4" @bind="@newTask.Description"></textarea>
+    </div>
+
+<div>
+    <RadzenButton Text="登録" type="Submit" disabled=@isError/>
+    <RadzenButton Text="戻る" Click="Cancel" />
+</div>
+    <DataAnnotationsValidator />
+</EditForm>
+

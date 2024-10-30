@@ -10,11 +10,19 @@
     <link rel="stylesheet" href="DensanLearnExam.styles.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
     <HeadOutlet />
+    @*Radzenコンポーネント用のCSS参照*@
+    <link href="_content/Radzen.Blazor/css/humanistic-base.css" rel="stylesheet" />
+    @*ここまで*@
+
 </head>
+
 
 <body>
     <Routes />
     <script src="_framework/blazor.web.js"></script>
+    @*Radzenコンポーネント用のJavascript参照*@
+    <script src="_content/RadzenBlazor/Radzen.Blazor.js?V=@(typeof(Radzen.Colors).Assembly.GetName().Version)"></script>
+    @*ここまで*@
 </body>
 
 </html>
