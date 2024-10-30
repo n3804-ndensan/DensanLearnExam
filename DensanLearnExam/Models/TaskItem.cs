@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace DensanLearnExam.Models
 {
@@ -6,8 +7,8 @@ namespace DensanLearnExam.Models
     {
         [Required(ErrorMessage = "題名は必須項目です")]
         public string Title { get; set; } = string.Empty;
-        [Required]
-        public DateTime DueDate { get; set; }
+        [Required(ErrorMessage = "期限は必須項目です")]
+        public DateTime? DueDate { get; set; } = DateTime.Now.Date;
         [Required]
         public Status TaskStatus { get; set; }
         public string Description { get; set; } = string.Empty;
@@ -19,9 +20,24 @@ namespace DensanLearnExam.Models
             {
                 return stateComparison;
             }
-
-            return this.DueDate.CompareTo(other.DueDate);
+            if (this.DueDate == null && other.DueDate == null)
+            {
+                return 0;
+            }
+            else if (this.DueDate == null)
+            {
+                return -1;
+            }
+            else if (other.DueDate == null)
+            {
+                return 1;
+            }
+            else
+            {
+                return this.DueDate.Value.CompareTo(other.DueDate.Value);
+            }
         }
+
         public enum Status
         {
             未着手 = 0,
@@ -30,6 +46,4 @@ namespace DensanLearnExam.Models
             無視 = 9
         }
     }
-
-
 }

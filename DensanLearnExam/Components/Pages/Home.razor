@@ -21,7 +21,7 @@
             </RadzenDataGridColumn>
             <RadzenDataGridColumn Title="期限">
                 <Template>
-                    @context.DueDate.ToString("yyyy/MM/dd")
+                    @context.DueDate.Value.ToString("yyyy/MM/dd")
                 </Template>
             </RadzenDataGridColumn>
             <RadzenDataGridColumn Title="状態">
